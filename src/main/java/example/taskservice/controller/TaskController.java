@@ -1,6 +1,5 @@
 package example.taskservice.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import example.taskservice.model.TaskDto;
 import example.taskservice.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
 @RequestMapping("/api/v1/task")
 public class TaskController {
@@ -20,7 +21,6 @@ public class TaskController {
 
     @GetMapping("/{id}")
     public ResponseEntity<TaskDto> getTask(@PathVariable Long id) {
-        ObjectMapper om = new ObjectMapper();
         Optional<TaskDto> taskDto = taskService.getTask(id);
         if (taskDto.isPresent()) {
             return ResponseEntity.ok(taskDto.get());
@@ -29,7 +29,7 @@ public class TaskController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
-    @PostMapping
+    @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<TaskDto> createTask(@RequestBody TaskDto taskDto) {
         TaskDto createdTask = taskService.createTask(taskDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);

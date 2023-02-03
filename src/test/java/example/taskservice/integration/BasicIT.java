@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import example.taskservice.model.TaskDto;
 import example.taskservice.repository.TaskRepository;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,16 +17,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimeZone;
 
+import static example.taskservice.util.Util.simpleDateFormat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -36,8 +31,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class BasicIT {
-
-    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     private static final ObjectMapper om = new ObjectMapper();
 
@@ -49,7 +42,6 @@ public class BasicIT {
 
     @BeforeAll
     static void setupClass() {
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         om.setDateFormat(simpleDateFormat);
     }
 
@@ -122,7 +114,7 @@ public class BasicIT {
 
         // -------------------------------- DELETE ------------------------------
 
-        mvcResult = mockMvc.perform(delete("/api/v1/task/1")
+        mockMvc.perform(delete("/api/v1/task/1")
                 .with(httpBasic("userMike", "123"))
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

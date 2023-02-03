@@ -2,6 +2,7 @@ package example.taskservice.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import example.taskservice.config.BasicConfiguration;
 import example.taskservice.config.SecurityConfig;
 import example.taskservice.model.TaskDto;
 import example.taskservice.service.TaskService;
@@ -15,12 +16,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.TimeZone;
 
+import static example.taskservice.util.Util.simpleDateFormat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -30,10 +30,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = {TaskController.class})
-@Import({SecurityConfig.class})
+@Import({SecurityConfig.class, BasicConfiguration.class})
 class TaskControllerTest {
-
-    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     private static final ObjectMapper om = new ObjectMapper();
 
@@ -89,7 +87,6 @@ class TaskControllerTest {
     @Test
     void testCreate() throws Exception {
         TaskDto taskDto = TaskDto.builder()
-                .id(1L)
                 .name("name")
                 .deadline(simpleDateFormat.parse("2019-03-12"))
                 .description("desc")

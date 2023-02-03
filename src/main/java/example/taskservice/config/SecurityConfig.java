@@ -10,21 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.TimeZone;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig  {
-
-    private static final String dateFormat = "yyyy-MM-dd ";
-
-    @Bean
-    public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
-        return builder -> {
-            builder.simpleDateFormat(dateFormat);
-            builder.timeZone(TimeZone.getTimeZone("GMT+1"));
-        };
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

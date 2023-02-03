@@ -10,9 +10,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -66,6 +64,6 @@ class TaskRepositoryTest {
         taskRepository.save(task3);
 
         List<Long> allTaskId = taskRepository.getAllTaskId();
-        assertEquals(Arrays.asList(1L, 2L, 3L), allTaskId);
+        assertEquals(Arrays.asList(task1.getId(), task2.getId(), task3.getId()), allTaskId);
     }
 }

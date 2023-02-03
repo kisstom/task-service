@@ -1,5 +1,6 @@
 package example.taskservice.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import example.taskservice.model.TaskDto;
 import example.taskservice.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +20,7 @@ public class TaskController {
 
     @GetMapping("/{id}")
     public ResponseEntity<TaskDto> getTask(@PathVariable Long id) {
+        ObjectMapper om = new ObjectMapper();
         Optional<TaskDto> taskDto = taskService.getTask(id);
         if (taskDto.isPresent()) {
             return ResponseEntity.ok(taskDto.get());

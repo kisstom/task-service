@@ -45,7 +45,6 @@ class TaskControllerTest {
 
     @BeforeAll
     static void setup() {
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         om.setDateFormat(simpleDateFormat);
     }
 

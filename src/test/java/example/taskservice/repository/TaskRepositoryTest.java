@@ -3,6 +3,7 @@ package example.taskservice.repository;
 import example.taskservice.model.Task;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -15,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -24,6 +26,19 @@ class TaskRepositoryTest {
 
     @Autowired
     private TaskRepository taskRepository;
+
+    @Test
+    public void testSave() throws ParseException {
+        Task task = Task.builder()
+                .description("desc")
+                .name("name")
+                .deadline(simpleDateFormat.parse("2019-03-12"))
+                .build();
+
+        Task save = taskRepository.save(task);
+        Task retrieved = taskRepository.findById(save.getId()).get();
+        assertTrue(new ReflectionEquals(task, "id").matches(retrieved));
+    }
 
     @Test
     void test() throws ParseException {

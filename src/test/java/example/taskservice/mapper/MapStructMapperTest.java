@@ -8,12 +8,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.text.SimpleDateFormat;
 
+import static example.taskservice.util.Util.simpleDateFormat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class MapStructMapperTest {
-
-    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Autowired
     private MapStructMapper mapStructMapper;

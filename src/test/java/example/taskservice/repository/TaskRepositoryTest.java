@@ -13,14 +13,13 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
+import static example.taskservice.util.Util.simpleDateFormat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 class TaskRepositoryTest {
-
-    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Autowired
     private TaskRepository taskRepository;

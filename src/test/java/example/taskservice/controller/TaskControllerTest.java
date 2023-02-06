@@ -27,6 +27,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = {TaskController.class})
@@ -101,6 +102,7 @@ class TaskControllerTest {
                 .content(om.writeValueAsString(taskDto))
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
+                .andDo(print())
                 .andReturn();
 
         assertEquals(saved, om.readValue(mvcResult.getResponse().getContentAsString(), TaskDto.class));

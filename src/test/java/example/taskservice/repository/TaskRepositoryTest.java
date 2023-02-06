@@ -9,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,9 +31,9 @@ class TaskRepositoryTest {
                 .deadline(simpleDateFormat.parse("2019-03-12"))
                 .build();
 
-        Task save = taskRepository.save(task);
-        Task retrieved = taskRepository.findById(save.getId()).get();
-        assertTrue(new ReflectionEquals(task, "id").matches(retrieved));
+        Task savedTask = taskRepository.save(task);
+        Task retrievedTask = taskRepository.findById(savedTask.getId()).get();
+        assertTrue(new ReflectionEquals(task, "id").matches(retrievedTask));
     }
 
     @Test
@@ -62,7 +61,7 @@ class TaskRepositoryTest {
         taskRepository.save(task2);
         taskRepository.save(task3);
 
-        List<Long> allTaskId = taskRepository.getAllTaskId();
-        assertEquals(Arrays.asList(task1.getId(), task2.getId(), task3.getId()), allTaskId);
+        List<Long> allTaskIds = taskRepository.getAllTaskIds();
+        assertEquals(Arrays.asList(task1.getId(), task2.getId(), task3.getId()), allTaskIds);
     }
 }

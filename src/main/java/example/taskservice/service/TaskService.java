@@ -37,7 +37,7 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
-    public List<Long> geAllTaskId() {
-        return taskRepository.getAllTaskId();
+    public List<Long> geAllTaskIds() {
+        return taskRepository.getAllTaskIds();
     }
 }

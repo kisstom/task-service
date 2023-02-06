@@ -11,5 +11,5 @@ import java.util.List;
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
     @Query("select id from task")
-    List<Long> getAllTaskId();
+    List<Long> getAllTaskIds();
 }

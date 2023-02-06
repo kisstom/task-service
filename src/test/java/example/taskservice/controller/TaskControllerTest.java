@@ -54,7 +54,7 @@ class TaskControllerTest {
         ids.add(3L);
         ids.add(2L);
 
-        when(taskService.geAllTaskId()).thenReturn(ids);
+        when(taskService.geAllTaskIds()).thenReturn(ids);
 
         MvcResult mvcResult = mockMvc.perform(get("/api/v1/task/all")
                 .with(httpBasic("userMike", "123"))
@@ -93,8 +93,8 @@ class TaskControllerTest {
                 .description("desc")
                 .build();
 
-        TaskDto saved = taskDto.toBuilder().id(1L).build();
-        when(taskService.createTask(eq(taskDto))).thenReturn(saved);
+        TaskDto expectedTaskDto = taskDto.toBuilder().id(1L).build();
+        when(taskService.createTask(eq(taskDto))).thenReturn(expectedTaskDto);
 
         MvcResult mvcResult = mockMvc.perform(post("/api/v1/task")
                 .with(httpBasic("userMike", "123"))
@@ -105,6 +105,6 @@ class TaskControllerTest {
                 .andDo(print())
                 .andReturn();
 
-        assertEquals(saved, om.readValue(mvcResult.getResponse().getContentAsString(), TaskDto.class));
+        assertEquals(expectedTaskDto, om.readValue(mvcResult.getResponse().getContentAsString(), TaskDto.class));
     }
 }

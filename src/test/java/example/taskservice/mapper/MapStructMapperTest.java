@@ -27,13 +27,13 @@ public class MapStructMapperTest {
                 .build();
 
         Task task = mapStructMapper.taskDtoToTask(taskDto);
-        Task expected = Task.builder()
+        Task expectedTask = Task.builder()
                 .id(1L)
                 .name("name")
                 .description("desc")
                 .deadline(simpleDateFormat.parse("2019-03-12"))
                 .build();
 
-        assertEquals(expected, task);
+        assertEquals(expectedTask, task);
     }
 }

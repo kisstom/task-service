@@ -42,8 +42,8 @@ public class TaskController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Long>> getAllTaskId() {
-        return ResponseEntity.ok(taskService.geAllTaskId());
+    public ResponseEntity<List<Long>> getAllTaskIds() {
+        return ResponseEntity.ok(taskService.geAllTaskIds());
     }
 
 }

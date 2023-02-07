@@ -10,11 +10,7 @@ import java.util.Date;
 @Value
 @Jacksonized
 @Builder(toBuilder = true)
-public class TaskDto {
-
-    @NotNull
-    Long id;
-
+public class CreateTaskRequest {
     @NotNull
     String name;
 

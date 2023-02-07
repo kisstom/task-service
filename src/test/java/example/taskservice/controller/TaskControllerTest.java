@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import example.taskservice.config.BasicConfiguration;
 import example.taskservice.config.SecurityConfig;
+import example.taskservice.model.CreateTaskRequest;
 import example.taskservice.model.TaskDto;
 import example.taskservice.service.TaskService;
 import org.junit.jupiter.api.BeforeAll;
@@ -87,19 +88,25 @@ class TaskControllerTest {
 
     @Test
     void testCreate() throws Exception {
-        TaskDto taskDto = TaskDto.builder()
+        CreateTaskRequest createTaskRequest = CreateTaskRequest.builder()
                 .name("name")
                 .deadline(simpleDateFormat.parse("2019-03-12"))
                 .description("desc")
                 .build();
 
-        TaskDto expectedTaskDto = taskDto.toBuilder().id(1L).build();
-        when(taskService.createTask(eq(taskDto))).thenReturn(expectedTaskDto);
+        TaskDto expectedTaskDto = TaskDto.builder()
+                .id(1L)
+                .name("name")
+                .deadline(simpleDateFormat.parse("2019-03-12"))
+                .description("desc")
+                .build();
+
+        when(taskService.createTask(eq(createTaskRequest))).thenReturn(expectedTaskDto);
 
         MvcResult mvcResult = mockMvc.perform(post("/api/v1/task")
                 .with(httpBasic("userMike", "123"))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(om.writeValueAsString(taskDto))
+                .content(om.writeValueAsString(createTaskRequest))
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andDo(print())

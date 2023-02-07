@@ -1,6 +1,7 @@
 package example.taskservice.service;
 
 import example.taskservice.mapper.MapStructMapper;
+import example.taskservice.model.CreateTaskRequest;
 import example.taskservice.model.Task;
 import example.taskservice.model.TaskDto;
 import example.taskservice.repository.TaskRepository;
@@ -28,8 +29,13 @@ public class TaskService {
         return Optional.empty();
     }
 
-    public TaskDto createTask(TaskDto taskDto) {
-        Task task = mapper.taskDtoToTask(taskDto);
+    public TaskDto createTask(CreateTaskRequest createTaskRequest) {
+        Task task = Task.builder()
+                .name(createTaskRequest.getName())
+                .description(createTaskRequest.getDescription())
+                .deadline(createTaskRequest.getDeadline())
+                .build();
+
         return mapper.taskToTaskDto(taskRepository.save(task));
     }
 

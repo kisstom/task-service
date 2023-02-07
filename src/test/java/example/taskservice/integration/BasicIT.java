@@ -2,6 +2,7 @@ package example.taskservice.integration;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import example.taskservice.model.CreateTaskRequest;
 import example.taskservice.model.TaskDto;
 import example.taskservice.repository.TaskRepository;
 import org.junit.jupiter.api.BeforeAll;
@@ -54,7 +55,7 @@ public class BasicIT {
     void test() throws Exception {
         // --------------------------- POST -------------------------------------
 
-        TaskDto taskDto = TaskDto.builder()
+        CreateTaskRequest taskDto = CreateTaskRequest.builder()
                 .name("name")
                 .deadline(simpleDateFormat.parse("2019-03-12"))
                 .description("desc")

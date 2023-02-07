@@ -1,5 +1,6 @@
 package example.taskservice.controller;
 
+import example.taskservice.model.CreateTaskRequest;
 import example.taskservice.model.TaskDto;
 import example.taskservice.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +32,8 @@ public class TaskController {
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<TaskDto> createTask(@RequestBody TaskDto taskDto) {
-        TaskDto createdTask = taskService.createTask(taskDto);
+    public ResponseEntity<TaskDto> createTask(@Valid @RequestBody CreateTaskRequest createTaskRequest) {
+        TaskDto createdTask = taskService.createTask(createTaskRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);
     }
 

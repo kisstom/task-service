@@ -19,21 +19,21 @@ public class MapStructMapperTest {
 
     @Test
     void testCustomerDtoToCustomer() throws Exception {
-        TaskDto taskDto = TaskDto.builder()
+        Task task = Task.builder()
                 .id(1L)
                 .name("name")
                 .deadline(simpleDateFormat.parse("2019-03-12"))
                 .description("desc")
                 .build();
 
-        Task task = mapStructMapper.taskDtoToTask(taskDto);
-        Task expectedTask = Task.builder()
+        TaskDto expectedTaskDto = TaskDto.builder()
                 .id(1L)
                 .name("name")
                 .description("desc")
                 .deadline(simpleDateFormat.parse("2019-03-12"))
                 .build();
 
-        assertEquals(expectedTask, task);
+        TaskDto taskDto = mapStructMapper.taskToTaskDto(task);
+        assertEquals(expectedTaskDto, taskDto);
     }
 }

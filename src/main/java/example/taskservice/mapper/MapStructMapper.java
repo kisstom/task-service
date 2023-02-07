@@ -9,8 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Mapper(componentModel = "spring")
 public interface MapStructMapper {
+
     TaskDto taskToTaskDto(Task task);
 
-    @Mapping(source = "deadline", target = "deadline", dateFormat = "yyyy-MM-dd")
-    Task taskDtoToTask(TaskDto taskDto);
 }
